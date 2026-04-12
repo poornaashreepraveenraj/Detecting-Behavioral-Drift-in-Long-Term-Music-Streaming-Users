@@ -1,4 +1,6 @@
-# DriftTune — Detecting Behavioral Drift in Long-Term Music Streaming Users
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/poornaashreepraveenraj/Detecting-Behavioral-Drift-in-Long-Term-Music-Streaming-Users/blob/main/DriftTune.ipynb)
+
+# DriftTune — Detecting Behavioral Drift in Long-Term Music Streaming User
 
 ## Problem Statement
 DriftTune detects how user music preferences change over time using Last.fm 
