@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DriftTune — Intelligent Music Discovery</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Figtree:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<canvas id="bg-canvas"></canvas>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Drift<span>Tune</span></div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-eyebrow">Acoustic Intelligence</div>
+  <h1 class="hero-title">
+    Intelligent Music<br>
+    <span class="gradient-text">Recommendation System</span>
+  </h1>
+  <p class="hero-sub">
+    Discover flawless recommendations tailored to your mood, time of day, and the deep audio features of the music you love. Now powered by a massive dataset of 400,000+ tracks.
+  </p>
+  <button class="btn-primary" onclick="document.getElementById('preferences').scrollIntoView({behavior:'smooth'})"><span>Get Recommendations</span></button>
+</section>
+
+<!-- PREFERENCES -->
+<section id="preferences">
+  <div class="pref-grid">
+    
+    <!-- LEFT: GENRES & ARTISTS -->
+    <div class="pref-section">
+      <span class="section-label">01. Taste Profile</span>
+      
+      <div style="margin-bottom: 2.5rem;">
+        <h3 style="color: var(--white); margin-bottom: 1rem;">Primary Genres</h3>
+        <div class="genre-container" id="genre-pills">
+          <div class="genre-pill" data-genre="Pop">Pop</div>
+          <div class="genre-pill" data-genre="Rock">Rock</div>
+          <div class="genre-pill" data-genre="Electronic">Electronic</div>
+          <div class="genre-pill" data-genre="R&B">R&B</div>
+          <div class="genre-pill" data-genre="Hip-Hop">Hip-Hop</div>
+          <div class="genre-pill" data-genre="Jazz">Jazz</div>
+          <div class="genre-pill" data-genre="Classical">Classical</div>
+          <div class="genre-pill" data-genre="Lo-fi">Lo-fi</div>
+        </div>
+      </div>
+
+      <div>
+        <h3 style="color: var(--white); margin-bottom: 1rem;">Favorite Artists</h3>
+        <div class="artist-input-wrap">
+          <input type="text" id="artist-input" placeholder="Enter artists (e.g. Drake, Daft Punk)...">
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: TIME & MOOD -->
+    <div class="pref-section">
+      <span class="section-label">02. Contextual Bias</span>
+      
+      <div style="margin-bottom: 2.5rem;">
+        <h3 style="color: var(--white); margin-bottom: 1rem;">Time of Day</h3>
+        <div class="time-grid">
+          <div class="time-card" data-time="morning">
+            <span class="icon">🌅</span>
+            <span class="label">Morning</span>
+          </div>
+          <div class="time-card" data-time="afternoon">
+            <span class="icon">☀️</span>
+            <span class="label">Afternoon</span>
+          </div>
+          <div class="time-card" data-time="evening">
+            <span class="icon">🌆</span>
+            <span class="label">Evening</span>
+          </div>
+          <div class="time-card" data-time="night">
+            <span class="icon">🌙</span>
+            <span class="label">Night</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-bottom: 1.5rem;">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 0.8rem;">
+          <h4 style="color: var(--white);">Energy</h4>
+          <span id="energy-val" style="color: var(--cyan); font-family: 'Space Mono'; font-size: 0.8rem;">50%</span>
+        </div>
+        <input type="range" id="energy-slider" min="0" max="100" value="50" style="width: 100%;">
+      </div>
+
+      <div style="margin-bottom: 2rem;">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 0.8rem;">
+          <h4 style="color: var(--white);">Mood Depth</h4>
+          <span id="mood-val" style="color: var(--cyan); font-family: 'Space Mono'; font-size: 0.8rem;">50%</span>
+        </div>
+        <input type="range" id="mood-slider" min="0" max="100" value="50" style="width: 100%;">
+      </div>
+
+      <button class="btn-primary" style="width: 100%;" id="generate-btn">Analyze & Recommend</button>
+    </div>
+
+  </div>
+</section>
+
+<!-- RECOMMENDATIONS -->
+<section id="recommendations" style="display: none;">
+    <div class="recs-header">
+        <h2 class="recs-title">Curated Selection</h2>
+        <p style="color: var(--muted); margin-top: 1rem;">Ranked by relevance to your preference vector</p>
+    </div>
+
+    <div class="recs-grid" id="recs-grid">
+        <!-- Cards rendered via JS -->
+    </div>
+
+    <div class="viz-panel" style="margin-top: 5rem;">
+        <h3 style="text-align: center; color: var(--white); margin-bottom: 2rem; font-family: 'Syne';">Composite Audio Features</h3>
+        <canvas id="featureCanvas"></canvas>
+    </div>
+</section>
+
+<footer>
+    © 2026 · DriftTune Intelligence · Experience Premium Sound
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

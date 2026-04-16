@@ -1,0 +1,19 @@
+Optimized Model Results (Target: High Energy Level)
+==================================================
+Algorithm: Random Forest (Replacing KNN for Performance)
+Accuracy: 0.8888
+F1 Score: 0.9143
+
+Classification Report:
+              precision    recall  f1-score   support
+
+           0       0.87      0.81      0.84      9523
+           1       0.90      0.93      0.91     16675
+
+    accuracy                           0.89     26198
+   macro avg       0.88      0.87      0.88     26198
+weighted avg       0.89      0.89      0.89     26198
+
+Sample Predictions (First 10):
+Real: [0, 1, 1, 1, 0, 0, 0, 1, 0, 1]
+Pred: [np.int64(1), np.int64(1), np.int64(1), np.int64(1), np.int64(0), np.int64(0), np.int64(1), np.int64(1), np.int64(0), np.int64(1)]

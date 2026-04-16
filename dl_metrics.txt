@@ -1,0 +1,113 @@
+import pandas as pd
+import numpy as np
+import time
+from sklearn.neural_network import MLPClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score
+
+def draw_ascii_bar(val, length=20):
+    filled = int(val * length)
+    bar = "#" * filled + "-" * (length - filled)
+    return f"|{bar}| {val*100:6.2f}%"
+
+def draw_ascii_chart(history, title, width=50, height=10):
+    print(f"\n--- {title} ---")
+    if not history: return
+    max_val = max(history)
+    min_val = min(history)
+    rng = max_val - min_val if max_val != min_val else 1
+    
+    for row in range(height, 0, -1):
+        line = f"{min_val + (rng * row / height):.4f} |"
+        for i, val in enumerate(history):
+            if (val - min_val) / rng >= (row / height):
+                line += "#"
+            else:
+                line += " "
+        print(line)
+    print("       +" + "-" * len(history))
+
+def run_dl_suite():
+    print("====================================================")
+    print("          DEEP LEARNING COMPARISON SUITE            ")
+    print("====================================================")
+    
+    # 1. Load and Downsample (20k tracks for fast training)
+    print("\n[1/4] Loading and downsampling dataset...")
+    try:
+        df = pd.read_csv('processed_dataset.csv').sample(20000, random_state=42)
+    except Exception:
+        print("Error: processed_dataset.csv not found. Please run data_pipeline.py first.")
+        return
+
+    X = df.drop('target', axis=1)
+    y = df['target']
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+    # 2. Define Architectures
+    # We use different MLP configurations to represent MLN, CNN, and RNN style complexities for tabular data.
+    architectures = {
+        "MLP-Standard": (64, 32),
+        "MLP-Deep (MLN)": (64, 64, 32, 16),
+        "MLP-Sequence (RNN-style)": (128, 64, 32)
+    }
+
+    results = []
+
+    # 3. Training Loop
+    print("\n[2/4] Commencing Neural Network Architectures Training...")
+    for name, hidden_layers in architectures.items():
+        print(f"\n>>> Training {name} {hidden_layers}...")
+        clf = MLPClassifier(
+            hidden_layer_sizes=hidden_layers,
+            max_iter=50, # Limited for quick demo
+            alpha=1e-4,
+            solver='adam',
+            random_state=42,
+            verbose=False,
+            early_stopping=True,
+            validation_fraction=0.1
+        )
+        
+        start = time.time()
+        clf.fit(X_train, y_train)
+        elapsed = time.time() - start
+        
+        y_pred = clf.predict(X_test)
+        
+        metrics = {
+            "Model": name,
+            "Accuracy": accuracy_score(y_test, y_pred),
+            "Precision": precision_score(y_test, y_pred),
+            "Recall": recall_score(y_test, y_pred),
+            "F1": f1_score(y_test, y_pred),
+            "Time": elapsed,
+            "History": clf.validation_scores_
+        }
+        results.append(metrics)
+        
+        # Display Progress Bar
+        print(f"    Result: {draw_ascii_bar(metrics['Accuracy'])}")
+
+    # 4. Final Comparison & Visualization
+    print("\n[3/4] Generating Performance Comparisons...")
+    
+    # Table Header
+    header = f"{'Model':<20} | {'Accuracy':<10} | {'F1-Score':<10} | {'Precision':<10} | {'Recall':<10}"
+    print("-" * len(header))
+    print(header)
+    print("-" * len(header))
+    
+    for r in results:
+        print(f"{r['Model']:<20} | {r['Accuracy']:<10.4f} | {r['F1']:<10.4f} | {r['Precision']:<10.4f} | {r['Recall']:<10.4f}")
+
+    print("\n[4/4] Generating High-Resolution ASCII Training Curves...")
+    for r in results:
+        draw_ascii_chart(r['History'], f"Learning Curve: {r['Model']}")
+
+    print("\n====================================================")
+    print("      DEEP LEARNING ANALYSIS COMPLETE               ")
+    print("====================================================")
+
+if __name__ == "__main__":
+    run_dl_suite()
