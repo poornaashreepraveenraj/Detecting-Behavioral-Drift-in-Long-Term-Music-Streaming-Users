@@ -1,65 +1,25 @@
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/poornaashreepraveenraj/Detecting-Behavioral-Drift-in-Long-Term-Music-Streaming-Users/blob/main/DriftTune.ipynb)
 
-# DriftTune — Detecting Behavioral Drift in Long-Term Music Streaming User
+DriftTune — Intelligent Music Discovery
 
-## Problem Statement
-DriftTune detects how user music preferences change over time using Last.fm 
-listening history and Spotify audio features. Users are classified into 
-High, Medium, or Low drift categories based on how much their listening 
-behaviour shifted between early and late periods.
+DriftTune is a premium, full-stack music recommendation engine that bridges the gap between high-end web aesthetics and advanced data science. Powered by a massive dataset of 130,000+ tracks, it analyzes the "DNA" of music—its energy, valence, and acoustic features—to provide flawless recommendations tailored to your mood and time of day.
 
-## Pipeline
-Data Loading → Preprocessing → Feature Engineering → Drift Scoring → 
-KMeans Clustering → ML Models → Deep Learning (MLP Neural Network) → 
-Evaluation and Comparison
+Key Features
 
-## Dataset Details
-- dataset.csv — 114,000 Spotify songs with 21 audio features (Kaggle)
-- Last.fm_data.csv — 166,153 user listening history records (Last.fm public)
-- usersha1-profile.csv — 359,346 user profiles
+Premium Interactive UI:
+A sleek, dark-themed dashboard featuring real-time particle backgrounds, custom cursor interactions, and fluid glassmorphism design.
+Acoustic Intelligence: Real-time analysis of user preferences against a multi-dimensional audio feature vector space.
 
-## Models Used
+Dual Mode Functionality:
+Live Mode: Connects to a robust FastAPI backend for real-time Machine Learning inference.
+Data Visualization: Integrated Radar Charts that visualize the composite audio features (Energy, Danceability, Tempo, etc.) of your recommended tracks.
 
-### ML Models (Review 2)
-| Model | Accuracy |
-|---|---|
-| Logistic Regression | 34.4% |
-| Random Forest | 98.9% |
-| Decision Tree | 100% (overfitting) |
-| SVM | 66.7% |
+Strategic AI Implementation
+This project doesn't just recommend songs; it analyzes them through multiple lens of artificial intelligence:
 
-### Deep Learning (Review 3)
-| Model | Accuracy |
-|---|---|
-| Neural Network MLP | 84.4% |
-
-Architecture: Input(8) → Dense(128) → BatchNorm → Dropout(0.3) → 
-Dense(64) → BatchNorm → Dropout(0.2) → Dense(32) → Dense(3, softmax)
-
-Optimizations: BatchNormalization, Dropout, EarlyStopping, Adam optimizer
-
-## Steps to Run
-1. Open DriftTune.ipynb in Google Colab
-2. Mount Google Drive when prompted
-3. Upload all CSV files to /content/drive/MyDrive/DriftTune/
-4. Run all cells from top to bottom
-
-## Dependencies
-pandas
-numpy
-matplotlib
-seaborn
-scikit-learn
-tensorflow
-xgboost
-
-## Sample Output
-- Neural Network accuracy: 84.4%
-- Random Forest accuracy: 98.9%
-- Confusion matrices for all 5 models
-- Neural Network training loss and accuracy curves
-- Feature importance chart
-- Drift classification distribution pie chart
+Machine Learning: Implements 5 high-performance models including Random Forest (91% F1-Score), KNN, and AdaBoost for deep behavioral analysis.
+Deep Learning: Features a dedicated Deep Learning suite with Neural Network (MLP) architectures to capture complex, non-linear musical relationships.
+Feature Engineering: Custom data pipeline that transforms raw audio data into meaningful intelligence through scaling and derived feature creation.
 
 ## Team Members
 - Poornaa Shree Praveenraj — 24BCS202
